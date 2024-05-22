@@ -5,6 +5,10 @@ spring:
   application:
     name: product-service
 
+springdoc:
+  swagger-ui:
+    path: documentacao
+
 eureka:
   client:
     serviceUrl:

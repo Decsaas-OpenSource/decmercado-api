@@ -4,12 +4,7 @@ server:
 spring:
   application:
     name: product-service
-
-springdoc:
-  swagger-ui:
-    path: documentacao
-
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8100/eureka/
+  profiles:
+    active: eureka, mongodb, swagger
+  config:
+    import: optional:configserver:http://localhost:8200

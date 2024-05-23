@@ -1,8 +1,7 @@
 package com.decsaas.decmercado.service.adapters.in.controller;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
-
-import javax.validation.constraints.NotBlank;
 
 @Data
 public class ProductRequest {

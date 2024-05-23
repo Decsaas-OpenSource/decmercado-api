@@ -3,6 +3,7 @@ package com.decsaas.decmercado.service.adapters.in.controller;
 import com.decsaas.decmercado.service.application.ports.in.InsertProductInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
+import java.net.URI;
 
 @Tag(name = "Produtos")
 @RestController
@@ -27,6 +28,6 @@ public class ProductController {
     @PostMapping("inserir")
     public ResponseEntity<Void> insert(@Valid @RequestBody ProductRequest productRequest) {
         insertProductInputPort.insert(productMapper.toProduct(productRequest));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.created(URI.create("local")).build();
     }
 }

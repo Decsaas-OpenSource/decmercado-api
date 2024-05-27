@@ -1,0 +1,16 @@
+spring:
+  main:
+    web-application-type: reactive
+    allow-bean-definition-overriding: true
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: login-service
+      username: admin
+      password: secret
+      authentication-database: admin
+
+jwt:
+  private: decmercado.key
+  public: decmercado.pub

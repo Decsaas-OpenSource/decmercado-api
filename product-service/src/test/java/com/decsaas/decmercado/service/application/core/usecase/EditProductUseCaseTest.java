@@ -5,11 +5,13 @@ import com.decsaas.decmercado.service.application.core.exception.ProductConflict
 import com.decsaas.decmercado.service.application.core.exception.ProductNotFoundException;
 import com.decsaas.decmercado.service.application.ports.out.EditProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import static com.decsaas.decmercado.service.application.core.ProductConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -17,11 +19,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class EditProductUseCaseTest {
 
-    public static final String PRODUCT_DESCRIPTION = "description";
-    public static final String PRODUCT_USER_ID = "user";
-    public static final String PRODUCT_ID = "id";
-    public static final String PRODUCT_OTHER_ID = "id2";
-    public static final String PRODUCT_OTHER_DESCRIPTION = "descricao";
 
     @Mock
     FindProductOutputPort findProductOutputPort;
@@ -29,11 +26,15 @@ public class EditProductUseCaseTest {
     @Mock
     EditProductOutputPort editProductOutputPort;
 
+    EditProductUseCase useCase;
+
+    @BeforeEach
+    public void init() {
+        useCase = new EditProductUseCase(null, findProductOutputPort);
+    }
+
     @Test()
     public void mustNotFindTheProduct() {
-        EditProductUseCase useCase =
-                new EditProductUseCase(null, findProductOutputPort);
-
         ProductNotFoundException productNotFoundException = assertThrows(ProductNotFoundException.class,
                 () -> useCase.edit(new Product(PRODUCT_USER_ID, null, PRODUCT_DESCRIPTION))
         );
@@ -49,8 +50,6 @@ public class EditProductUseCaseTest {
 
         when(findProductOutputPort.findByDescription(PRODUCT_USER_ID, PRODUCT_DESCRIPTION))
                 .thenReturn(new Product(PRODUCT_USER_ID, PRODUCT_OTHER_ID, PRODUCT_DESCRIPTION));
-
-        EditProductUseCase useCase = new EditProductUseCase(null, findProductOutputPort);
 
         ProductConflictException productConflictException = assertThrows(ProductConflictException.class,
                 () -> useCase.edit(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_DESCRIPTION))
@@ -68,12 +67,10 @@ public class EditProductUseCaseTest {
         when(findProductOutputPort.findById(PRODUCT_USER_ID, PRODUCT_ID))
                 .thenReturn(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_DESCRIPTION));
 
-        when(findProductOutputPort.findByDescription(PRODUCT_USER_ID, PRODUCT_DESCRIPTION))
+        when(findProductOutputPort.findByDescription(PRODUCT_USER_ID, PRODUCT_OTHER_DESCRIPTION))
                 .thenReturn(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_DESCRIPTION));
 
-        EditProductUseCase useCase = new EditProductUseCase(editProductOutputPort,
-                findProductOutputPort);
-
+        useCase = new EditProductUseCase(editProductOutputPort, findProductOutputPort);
         Product result = useCase.edit(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_OTHER_DESCRIPTION));
 
         assertEquals(PRODUCT_USER_ID, result.getUserId());

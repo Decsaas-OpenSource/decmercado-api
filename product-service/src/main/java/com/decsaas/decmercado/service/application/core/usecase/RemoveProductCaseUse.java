@@ -1,6 +1,7 @@
 package com.decsaas.decmercado.service.application.core.usecase;
 
 import com.decsaas.decmercado.service.application.core.exception.ProductNotFoundException;
+import com.decsaas.decmercado.service.application.core.usecase.common.ExistsUseCase;
 import com.decsaas.decmercado.service.application.ports.in.RemoveProductInputPort;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.RemoveProductOutputPort;

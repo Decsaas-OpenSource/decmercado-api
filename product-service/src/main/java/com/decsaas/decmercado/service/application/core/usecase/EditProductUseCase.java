@@ -3,6 +3,7 @@ package com.decsaas.decmercado.service.application.core.usecase;
 import com.decsaas.decmercado.service.application.core.domain.Product;
 import com.decsaas.decmercado.service.application.core.exception.ProductConflictException;
 import com.decsaas.decmercado.service.application.core.exception.ProductNotFoundException;
+import com.decsaas.decmercado.service.application.core.usecase.common.ExistsUseCase;
 import com.decsaas.decmercado.service.application.ports.in.EditProductInputPort;
 import com.decsaas.decmercado.service.application.ports.out.EditProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;

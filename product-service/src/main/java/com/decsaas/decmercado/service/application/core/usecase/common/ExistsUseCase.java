@@ -1,4 +1,4 @@
-package com.decsaas.decmercado.service.application.core.usecase;
+package com.decsaas.decmercado.service.application.core.usecase.common;
 
 import com.decsaas.decmercado.service.application.core.domain.Product;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;

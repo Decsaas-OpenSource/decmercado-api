@@ -2,7 +2,7 @@ package com.decsaas.decmercado.service.application.ports.in;
 
 import com.decsaas.decmercado.service.application.core.domain.Product;
 
-public interface InsertProductInputPort {
+public interface FindProductInputPort {
 
-    Product insert(Product product);
+    Product findById(String id);
 }

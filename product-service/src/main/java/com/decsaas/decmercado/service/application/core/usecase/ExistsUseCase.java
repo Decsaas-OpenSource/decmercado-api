@@ -11,8 +11,12 @@ public class ExistsUseCase {
         this.findProductOutputPort = findProductOutputPort;
     }
 
+    public boolean isNotExists(String id) {
+        return findProductOutputPort.findById(id) == null;
+    }
+
     public boolean isNotExists(Product product) {
-        return findProductOutputPort.findById(product.getId()) == null;
+        return isNotExists(product.getId());
     }
 
     public boolean isExistsByDescription(Product product) {

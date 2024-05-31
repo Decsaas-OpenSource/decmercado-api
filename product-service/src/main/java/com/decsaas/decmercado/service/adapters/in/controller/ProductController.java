@@ -7,6 +7,7 @@ import com.decsaas.decmercado.service.adapters.in.error.ErrorResponse;
 import com.decsaas.decmercado.service.application.core.domain.Product;
 import com.decsaas.decmercado.service.application.ports.in.EditProductInputPort;
 import com.decsaas.decmercado.service.application.ports.in.InsertProductInputPort;
+import com.decsaas.decmercado.service.application.ports.in.RemoveProductInputPort;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -32,6 +33,9 @@ public class ProductController {
 
     @Autowired
     private EditProductInputPort editProductInputPortd;
+
+    @Autowired
+    private RemoveProductInputPort removeProductInputPort;
 
     @Autowired
     private ProductMapper productMapper;
@@ -77,7 +81,7 @@ public class ProductController {
                             @Schema(implementation = ErrorResponse.class))
                     }),
             @ApiResponse(responseCode = "404",
-                    description = "ID informado não existe.",
+                    description = "Produto não existe.",
                     content = {
                             @Content(mediaType = "application/json", schema =
                             @Schema(implementation = ErrorResponse.class))
@@ -94,6 +98,29 @@ public class ProductController {
         return Mono.create(monoSink -> {
             Product productEdited = editProductInputPortd.edit(productMapper.toProduct(editProductRequest));
             monoSink.success(productMapper.toProductResponse(productEdited));
+        });
+    }
+
+    @Operation(summary = "Deletar um produto",
+            description = "Responsável por deletar um produto")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Produto deletado."),
+            @ApiResponse(responseCode = "404",
+                    description = "Produto não existe.",
+                    content = {
+                            @Content(mediaType = "application/json", schema =
+                            @Schema(implementation = ErrorResponse.class))
+                    }),
+    })
+    @DeleteMapping("deletar/{id}")
+    public Mono<ResponseEntity<String>> remove(@PathVariable String id) {
+        return Mono.create(monoSink -> {
+            removeProductInputPort.remove(id);
+            monoSink.success(
+                    new ResponseEntity<>(
+                            HttpStatus.OK
+                    )
+            );
         });
     }
 

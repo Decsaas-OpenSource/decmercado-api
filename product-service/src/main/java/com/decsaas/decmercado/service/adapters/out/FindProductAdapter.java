@@ -8,6 +8,8 @@ import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPor
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public class FindProductAdapter implements FindProductOutputPort {
 
@@ -29,6 +31,13 @@ public class FindProductAdapter implements FindProductOutputPort {
         return productRepository.findByDescription(description)
                 .map(productEntity -> productMapper.toProduct(productEntity))
                 .orElse(null);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return productRepository.findAll()
+                .stream().map(productEntity -> productMapper.toProduct(productEntity))
+                .toList();
     }
 
 }

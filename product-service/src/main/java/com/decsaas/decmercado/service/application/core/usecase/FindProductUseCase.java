@@ -6,6 +6,8 @@ import com.decsaas.decmercado.service.application.ports.in.FindProductInputPort;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;
 import org.springframework.util.ObjectUtils;
 
+import java.util.List;
+
 public class FindProductUseCase implements FindProductInputPort {
 
     private final FindProductOutputPort findProductOutputPort;
@@ -20,5 +22,10 @@ public class FindProductUseCase implements FindProductInputPort {
             throw new ProductIdNotProvided();
 
         return findProductOutputPort.findById(id);
+    }
+
+    @Override
+    public List<Product> findAll() {
+        return findProductOutputPort.findAll();
     }
 }

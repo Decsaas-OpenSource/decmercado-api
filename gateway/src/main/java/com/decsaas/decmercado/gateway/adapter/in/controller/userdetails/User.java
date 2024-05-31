@@ -52,4 +52,8 @@ public class User implements UserDetails, Serializable {
         return user.isEnabled();
     }
 
+    public String getId() {
+        return user.getId();
+    }
+
 }

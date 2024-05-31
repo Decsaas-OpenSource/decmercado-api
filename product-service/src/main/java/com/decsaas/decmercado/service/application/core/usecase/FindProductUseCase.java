@@ -17,15 +17,15 @@ public class FindProductUseCase implements FindProductInputPort {
     }
 
     @Override
-    public Product findById(String id) {
+    public Product findById(String userId, String id) {
         if (ObjectUtils.isEmpty(id))
             throw new ProductIdNotProvided();
 
-        return findProductOutputPort.findById(id);
+        return findProductOutputPort.findById(userId, id);
     }
 
     @Override
-    public List<Product> findAll() {
-        return findProductOutputPort.findAll();
+    public List<Product> findAll(String userId) {
+        return findProductOutputPort.findAll(userId);
     }
 }

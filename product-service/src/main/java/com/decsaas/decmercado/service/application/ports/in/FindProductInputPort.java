@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface FindProductInputPort {
 
-    Product findById(String id);
+    Product findById(String userId, String id);
 
-    List<Product> findAll();
+    List<Product> findAll(String userId);
 }

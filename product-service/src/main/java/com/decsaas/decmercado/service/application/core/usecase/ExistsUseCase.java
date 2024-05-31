@@ -11,16 +11,18 @@ public class ExistsUseCase {
         this.findProductOutputPort = findProductOutputPort;
     }
 
-    public boolean isNotExists(String id) {
-        return findProductOutputPort.findById(id) == null;
+    public boolean isNotExists(String userId, String id) {
+        return findProductOutputPort.findById(userId, id) == null;
     }
 
     public boolean isNotExists(Product product) {
-        return isNotExists(product.getId());
+        return isNotExists(product.getUserId(), product.getId());
     }
 
     public boolean isExistsByDescription(Product product) {
-        Product productByDescription = findProductOutputPort.findByDescription(product.getDescription());
+        Product productByDescription = findProductOutputPort.findByDescription(
+                product.getUserId(),
+                product.getDescription());
 
         if (productByDescription == null)
             return false;

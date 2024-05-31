@@ -12,9 +12,9 @@ import org.mapstruct.Mapping;
 public interface ProductMapper {
 
     @Mapping(target = "id", ignore = true)
-    Product toProduct(InsertProductRequest insertProductRequest);
+    Product toProduct(String userId, InsertProductRequest insertProductRequest);
 
-    Product toProduct(EditProductRequest editProductRequest);
+    Product toProduct(String userId, EditProductRequest editProductRequest);
 
     Product toProduct(ProductEntity productEntity);
 

@@ -17,10 +17,10 @@ public class RemoveProductCaseUse implements RemoveProductInputPort {
     }
 
     @Override
-    public void remove(String id) {
-        if (existsUseCase.isNotExists(id))
+    public void remove(String userId, String id) {
+        if (existsUseCase.isNotExists(userId, id))
             throw new ProductNotFoundException();
 
-        removeProductOutputPort.remove(id);
+        removeProductOutputPort.remove(userId, id);
     }
 }

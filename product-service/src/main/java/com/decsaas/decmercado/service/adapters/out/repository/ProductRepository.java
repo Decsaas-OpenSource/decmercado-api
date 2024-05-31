@@ -6,5 +6,9 @@ import java.util.Optional;
 
 public interface ProductRepository extends MongoRepository<ProductEntity, String> {
 
-    Optional<ProductEntity> findByDescription(String description);
+    Optional<ProductEntity> findByUserIdAndDescription(String userId, String description);
+
+    void deleteByUserIdAndId(String userId, String description);
+
+    Optional<ProductEntity> findByUserId(String userId);
 }

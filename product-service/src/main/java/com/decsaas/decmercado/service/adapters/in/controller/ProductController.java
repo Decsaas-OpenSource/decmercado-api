@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 
 //TODO: permitir a doc a partir do Gateway
 
@@ -65,9 +66,14 @@ public class ProductController {
                     }),
     })
     public Mono<ResponseEntity<ProductResponse>> insert(
+            @RequestHeader Map<?, ?> requestHeader,
             @Valid @RequestBody InsertProductRequest insertProductRequest) {
         return Mono.create(monoSink -> {
-            Product productInserted = insertProductInputPort.insert(productMapper.toProduct(insertProductRequest));
+            Product product = productMapper.toProduct(
+                    requestHeader.get("userId").toString(),
+                    insertProductRequest
+            );
+            Product productInserted = insertProductInputPort.insert(product);
             monoSink.success(
                     new ResponseEntity<>(productMapper.toProductResponse(productInserted),
                             HttpStatus.CREATED
@@ -100,9 +106,15 @@ public class ProductController {
                     }),
     })
     @PutMapping("editar")
-    public Mono<ProductResponse> edit(@Valid @RequestBody EditProductRequest editProductRequest) {
+    public Mono<ProductResponse> edit(
+            @RequestHeader Map<?, ?> requestHeader,
+            @Valid @RequestBody EditProductRequest editProductRequest) {
         return Mono.create(monoSink -> {
-            Product productEdited = editProductInputPortd.edit(productMapper.toProduct(editProductRequest));
+            Product product = productMapper.toProduct(
+                    requestHeader.get("userId").toString(),
+                    editProductRequest
+            );
+            Product productEdited = editProductInputPortd.edit(product);
             monoSink.success(productMapper.toProductResponse(productEdited));
         });
     }
@@ -119,9 +131,13 @@ public class ProductController {
                     }),
     })
     @DeleteMapping("deletar/{id}")
-    public Mono<ResponseEntity<String>> remove(@PathVariable String id) {
+    public Mono<ResponseEntity<String>> remove(
+            @RequestHeader Map<?, ?> requestHeader,
+            @PathVariable String id
+    ) {
         return Mono.create(monoSink -> {
-            removeProductInputPort.remove(id);
+            String userId = requestHeader.get("userId").toString();
+            removeProductInputPort.remove(userId, id);
             monoSink.success(
                     new ResponseEntity<>(
                             HttpStatus.OK
@@ -142,9 +158,13 @@ public class ProductController {
                     }),
     })
     @GetMapping("obter/{id}")
-    public Mono<ResponseEntity<ProductResponse>> get(@PathVariable String id) {
+    public Mono<ResponseEntity<ProductResponse>> get(
+            @RequestHeader Map<?, ?> requestHeader,
+            @PathVariable String id
+    ) {
         return Mono.create(monoSink -> {
-            Product product = findProductInputPort.findById(id);
+            String userId = requestHeader.get("userId").toString();
+            Product product = findProductInputPort.findById(userId, id);
             monoSink.success(
                     new ResponseEntity<>(productMapper.toProductResponse(product),
                             HttpStatus.OK
@@ -159,9 +179,10 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "Retorna uma lista de produtos."),
     })
     @GetMapping("obter")
-    public Mono<ResponseEntity<List<ProductResponse>>> getAll() {
+    public Mono<ResponseEntity<List<ProductResponse>>> getAll(@RequestHeader Map<?, ?> requestHeader) {
         return Mono.create(monoSink -> {
-            List<Product> list = findProductInputPort.findAll();
+            String userId = requestHeader.get("userId").toString();
+            List<Product> list = findProductInputPort.findAll(userId);
             monoSink.success(
                     new ResponseEntity<>(list.stream()
                             .map(product -> productMapper.toProductResponse(product))
@@ -171,6 +192,4 @@ public class ProductController {
             );
         });
     }
-
-    //TODO: criar outros endpoint
 }

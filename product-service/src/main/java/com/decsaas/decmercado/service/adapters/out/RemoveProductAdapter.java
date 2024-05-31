@@ -12,7 +12,7 @@ public class RemoveProductAdapter implements RemoveProductOutputPort {
     private ProductRepository productRepository;
 
     @Override
-    public void remove(String id) {
-        productRepository.deleteById(id);
+    public void remove(String userId, String id) {
+        productRepository.deleteByUserIdAndId(userId, id);
     }
 }

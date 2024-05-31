@@ -20,22 +20,22 @@ public class FindProductAdapter implements FindProductOutputPort {
     private ProductMapper productMapper;
 
     @Override
-    public Product findById(String id) {
+    public Product findById(String userId, String id) {
         return productRepository.findById(id)
                 .map(productEntity -> productMapper.toProduct(productEntity))
                 .orElseThrow(ProductNotFoundException::new);
     }
 
     @Override
-    public Product findByDescription(String description) {
-        return productRepository.findByDescription(description)
+    public Product findByDescription(String userId, String description) {
+        return productRepository.findByUserIdAndDescription(userId, description)
                 .map(productEntity -> productMapper.toProduct(productEntity))
                 .orElse(null);
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll()
+    public List<Product> findAll(String userId) {
+        return productRepository.findByUserId(userId)
                 .stream().map(productEntity -> productMapper.toProduct(productEntity))
                 .toList();
     }

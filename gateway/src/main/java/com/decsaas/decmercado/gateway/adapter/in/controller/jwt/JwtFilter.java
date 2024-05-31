@@ -1,10 +1,10 @@
 package com.decsaas.decmercado.gateway.adapter.in.controller.jwt;
 
+import com.decsaas.decmercado.gateway.adapter.in.controller.userdetails.User;
 import com.decsaas.decmercado.gateway.adapter.in.controller.userdetails.UserDetailsServicesImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AccountStatusUserDetailsChecker;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
@@ -37,7 +37,7 @@ public class JwtFilter implements WebFilter {
                     Objects.requireNonNull(jwt.getExpiresAt()).isBefore(new Date().toInstant()))
                 return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Token inválido!"));
 
-            UserDetails user = userDetailsServices.loadUserByUsername(jwt.getClaim("sub"));
+            User user = userDetailsServices.loadUserByUsername(jwt.getClaim("sub"));
 
             try {
                 AccountStatusUserDetailsChecker checker = new AccountStatusUserDetailsChecker();
@@ -45,6 +45,8 @@ public class JwtFilter implements WebFilter {
             } catch (Exception ex) {
                 return Mono.error(new ResponseStatusException(HttpStatus.UNAUTHORIZED, ex.getMessage()));
             }
+
+            exchange.getRequest().mutate().header("userId", user.getId());
         }
         return chain.filter(exchange);
     }

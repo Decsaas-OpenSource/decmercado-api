@@ -14,6 +14,9 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Document(collection = "produto")
 public class ProductEntity {
 
+    @NotBlank
+    private String userId;
+
     @Id
     @NotBlank
     private String id;

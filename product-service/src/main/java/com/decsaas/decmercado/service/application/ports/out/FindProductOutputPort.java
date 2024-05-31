@@ -5,9 +5,9 @@ import com.decsaas.decmercado.service.application.core.domain.Product;
 import java.util.List;
 
 public interface FindProductOutputPort {
-    Product findById(String id);
+    Product findById(String userId, String id);
 
-    Product findByDescription(String description);
+    Product findByDescription(String userId, String description);
 
-    List<Product> findAll();
+    List<Product> findAll(String userId);
 }

@@ -6,12 +6,12 @@ import com.decsaas.decmercado.service.application.ports.in.RemoveProductInputPor
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.RemoveProductOutputPort;
 
-public class RemoveProductCaseUse implements RemoveProductInputPort {
+public class RemoveProductUseCase implements RemoveProductInputPort {
 
     private final RemoveProductOutputPort removeProductOutputPort;
     private final ExistsUseCase existsUseCase;
 
-    public RemoveProductCaseUse(RemoveProductOutputPort removeProductOutputPort,
+    public RemoveProductUseCase(RemoveProductOutputPort removeProductOutputPort,
                                 FindProductOutputPort findProductOutputPort) {
         this.removeProductOutputPort = removeProductOutputPort;
         this.existsUseCase = new ExistsUseCase(findProductOutputPort);

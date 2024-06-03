@@ -25,7 +25,7 @@ Algumas tecnologias usadas.
 
 ## Configuração de usuário no MongoDB
 
-Será necessário criar a base (login-service) e adicionar um usuário para as operações. ([Passo a passo para inserir o usuario](https://github.com/Decsaas-OpenSource/decmercado-api/tree/main/mongodb/readme.md)).
+Será necessário criar a base (login-service) e adicionar um usuário para as operações. ([Passo a passo para inserir o usuário](https://github.com/Decsaas-OpenSource/decmercado-api/tree/main/mongodb/readme.md)).
 
 > [!NOTE]
 > Após a criação do usuário, é possivel usar todos os endpoints da aplicação.
@@ -52,7 +52,7 @@ Para mais detalhes dos outros endpoints, acesse a documentação no seguintes ur
 
 ### Produtos
 ```
-localhost:8300/documentação
+localhost:8300/documentacao
 ```
 
 ### Minhas listas

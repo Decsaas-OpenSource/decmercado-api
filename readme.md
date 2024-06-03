@@ -9,7 +9,7 @@ A ideia desse projeto, é mostrar são as funcionalidades de alguns componentes 
 
 Algumas tecnologias usadas.
 
-- Spring Cloud Server
+- Spring Cloud Config Server
 - Spring Cloud Eureka Server
 - Spring Cloud Gateway
 - Spring Cloud Security

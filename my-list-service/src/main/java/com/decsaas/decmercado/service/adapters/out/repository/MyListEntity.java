@@ -28,4 +28,7 @@ public class MyListEntity implements Serializable {
 
     @Column(name = "quantidade", nullable = false, precision = 12, scale = 3)
     private final BigDecimal amount;
+
+    @Column(name = "no_carrinho")
+    private final boolean selected;
 }

@@ -1,5 +1,6 @@
 package com.decsaas.decmercado.service.adapters.in.error;
 
+import com.decsaas.decmercado.service.application.core.exception.ProductAlreadyExistsException;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,12 @@ public class ApiExceptionHandler {
     public ResponseEntity<ErrorResponse> handleThrowable(PSQLException ex, Locale locale) {
         ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(ProductAlreadyExistsException.class)
+    public ResponseEntity<ErrorResponse> handleThrowable(ProductAlreadyExistsException ex, Locale locale) {
+        ErrorResponse errorResponse = new ErrorResponse(ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.CONFLICT);
     }
 
 }

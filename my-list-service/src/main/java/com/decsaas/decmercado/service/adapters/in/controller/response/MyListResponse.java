@@ -12,4 +12,5 @@ public class MyListResponse {
     private final String productDescription;
     private final String comment;
     private final BigDecimal amount;
+    private final boolean selected;
 }

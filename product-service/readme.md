@@ -10,7 +10,7 @@ Projeto responsável por toda a regra de negócio para cadastro dos produtos.
 
 ## Adicionar novas maquinas
 
-Para adicionar novos microservices em execução, será necessário criar novas configurações de execução e adicionar as **variaveis de ambiente** o seguinte comando:
+Para adicionar novos microservices em execução, será necessário criar novas configurações de execução e adicionar as **VM options** o seguinte comando:
 
 ```
 -Dserver.port=porta_desejada

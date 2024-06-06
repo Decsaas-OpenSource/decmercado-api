@@ -1,5 +1,6 @@
 package com.decsaas.decmercado.service.config;
 
+import com.decsaas.decmercado.service.adapters.out.ChangeNotificationProductAdapter;
 import com.decsaas.decmercado.service.adapters.out.EditProductAdapter;
 import com.decsaas.decmercado.service.adapters.out.FindProductAdapter;
 import com.decsaas.decmercado.service.application.core.usecase.EditProductUseCase;
@@ -12,8 +13,9 @@ public class EditProductConfig {
     @Bean
     public EditProductUseCase editProductUseCase(
             EditProductAdapter editProductAdapter,
-            FindProductAdapter findProductAdapter
+            FindProductAdapter findProductAdapter,
+            ChangeNotificationProductAdapter changeNotificationProductAdapter
     ) {
-        return new EditProductUseCase(editProductAdapter, findProductAdapter);
+        return new EditProductUseCase(editProductAdapter, findProductAdapter, changeNotificationProductAdapter);
     }
 }

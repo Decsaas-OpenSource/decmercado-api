@@ -12,7 +12,7 @@
 
 - Executando o docker na raiz do projeto mongodb
 ```
-docker run -d -p 27017:27017 --env-file .env --name mongodb
+docker run -d -p 27017:27017 --env-file .env --name mongodb mongo:latest
 ```
 
 #### Passo a passo para adicionar usuário.

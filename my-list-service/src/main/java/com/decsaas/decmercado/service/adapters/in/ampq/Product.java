@@ -1,7 +1,8 @@
-package com.decsaas.decmercado.service.application.core.domain;
+package com.decsaas.decmercado.service.adapters.in.ampq;
 
 import java.io.Serializable;
 
+//TODO: Ideal é ter um projeto common, mas para não criar complexidade no exemplo, não será criado
 public class Product implements Serializable {
 
     private String userId;

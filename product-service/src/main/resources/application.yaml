@@ -5,6 +5,6 @@ spring:
   application:
     name: product-service
   profiles:
-    active: eureka, mongodb, swagger
+    active: eureka, mongodb, swagger, rabbitmq
   config:
     import: optional:configserver:http://localhost:8200

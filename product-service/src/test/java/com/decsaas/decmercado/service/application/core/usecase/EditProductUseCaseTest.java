@@ -3,6 +3,7 @@ package com.decsaas.decmercado.service.application.core.usecase;
 import com.decsaas.decmercado.service.application.core.domain.Product;
 import com.decsaas.decmercado.service.application.core.exception.ProductConflictException;
 import com.decsaas.decmercado.service.application.core.exception.ProductNotFoundException;
+import com.decsaas.decmercado.service.application.ports.out.ChangeNotificationProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.EditProductOutputPort;
 import com.decsaas.decmercado.service.application.ports.out.FindProductOutputPort;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import static com.decsaas.decmercado.service.application.core.ProductConstants.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class EditProductUseCaseTest {
@@ -26,11 +27,14 @@ public class EditProductUseCaseTest {
     @Mock
     EditProductOutputPort editProductOutputPort;
 
+    @Mock
+    ChangeNotificationProductOutputPort changeNotificationProductOutputPort;
+
     EditProductUseCase useCase;
 
     @BeforeEach
     public void init() {
-        useCase = new EditProductUseCase(null, findProductOutputPort);
+        useCase = new EditProductUseCase(null, findProductOutputPort, changeNotificationProductOutputPort);
     }
 
     @Test()
@@ -70,11 +74,12 @@ public class EditProductUseCaseTest {
         when(findProductOutputPort.findByDescription(PRODUCT_USER_ID, PRODUCT_OTHER_DESCRIPTION))
                 .thenReturn(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_DESCRIPTION));
 
-        useCase = new EditProductUseCase(editProductOutputPort, findProductOutputPort);
+        useCase = new EditProductUseCase(editProductOutputPort, findProductOutputPort, changeNotificationProductOutputPort);
         Product result = useCase.edit(new Product(PRODUCT_USER_ID, PRODUCT_ID, PRODUCT_OTHER_DESCRIPTION));
 
         assertEquals(PRODUCT_USER_ID, result.getUserId());
         assertEquals(PRODUCT_ID, result.getId());
         assertEquals(PRODUCT_OTHER_DESCRIPTION, result.getDescription());
+        verify(changeNotificationProductOutputPort, times(1)).sendChange(result);
     }
 }

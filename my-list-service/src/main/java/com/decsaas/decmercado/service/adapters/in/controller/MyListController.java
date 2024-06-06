@@ -41,4 +41,8 @@ public class MyListController {
             );
         });
     }
+
+    /**
+     * Os outros endpoints CRUD são mais do mesmo, por isso não vou cria-los
+     */
 }

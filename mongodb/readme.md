@@ -17,22 +17,17 @@ docker run -d -p 27017:27017 --env-file .env --name mongodb
 
 #### Passo a passo para adicionar usuário.
 
-- docker exec -it <nome_do_conteiner_ou_id> bash
-- mongosh --username <username> --password <password>
-- use login-service
+URL responsável por adicionar usuário 
 ```
-db.users.insert({
-    nome: <defina_um_nome>,
-    senha : <defina_uma_senha>,
-    conta_expirada : false,
-    conta_bloqueada : false,
-    credenciais_expiradas : false,
-    habilitado : true
-})
+put http://localhost:8000/login/novo
 ```
-
-> [!NOTE]
-> Para definir sua senha use a classe JwtEncoder
+Body da request
+```
+{
+    "login": <nome_desejad0>
+    "password": <senha_desejada>
+}
+```
 
 # Algumas dicas para uso do mongo
 

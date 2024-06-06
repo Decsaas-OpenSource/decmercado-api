@@ -21,7 +21,7 @@ public class SecurityConfig {
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .authorizeExchange(exchanges -> exchanges
-                        .pathMatchers("/login").permitAll()
+                        .pathMatchers("/login/**").permitAll()
                         .anyExchange().authenticated()
                 )
                 .httpBasic(ServerHttpSecurity.HttpBasicSpec::disable)

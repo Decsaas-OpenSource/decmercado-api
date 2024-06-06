@@ -15,7 +15,12 @@ Algumas tecnologias usadas.
 - Spring Cloud Security
 - Spring Cloud Web
 - Spring Data MongoDB
-- Docker (MongoDB)
+- Spring Data JPA
+- Spring Boot AMPQ
+- Docker MongoDB
+- Docker Postgresql
+- Docker RabbitMQ
+- Flyway (Postgresql)
 
 ## Configurando o Spring Cloud Security
 
@@ -42,8 +47,17 @@ http://localhost:8000/login
 ```
 {
     "login": seu_usuario_criado,
-    "password": sua_senha_criado_nao_criptografado
+    "password": sua_senha_criado
 }
+```
+
+## Gateway Endpoint
+
+Exemplos de uso dos endpoints a partir do Gateway
+```
+http://localhost:8000/product-service/v1/produto/editar
+...
+http://localhost:8000/my-list-service/v1/minha-lista/inserir
 ```
 
 ## Documentação
@@ -56,8 +70,20 @@ localhost:8300/documentacao
 ```
 
 ### Minhas listas
+
+Só existe um endpoint
 ```
-????
+http://localhost:8400/v1/minha-lista/inserir
+```
+*body*
+```
+{
+     "productId": "",
+     "productDescription": "",
+     "comment": "",
+     "amount": "",
+     "selected": false
+}
 ```
 
 

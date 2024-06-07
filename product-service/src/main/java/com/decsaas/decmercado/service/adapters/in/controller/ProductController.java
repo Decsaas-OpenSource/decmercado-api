@@ -25,10 +25,8 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 import java.util.Map;
 
-//TODO: permitir a doc a partir do Gateway
-
 @RestController
-@RequestMapping("/v1/produto")
+@RequestMapping("/v1")
 @Tag(name = "Produtos - v1", description = "CRUD da API de produtos")
 public class ProductController {
 

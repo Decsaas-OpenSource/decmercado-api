@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/v1/minha-lista")
+@RequestMapping("/v1")
 public class MyListController {
 
     @Autowired

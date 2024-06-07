@@ -6,10 +6,20 @@ spring:
     name: gateway
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      routes:
+        - id: route1
+          uri: lb://product-service
+          predicates:
+            - Path=/produto/**
+          filters:
+            - StripPrefix=1
+
+        - id: route2
+          uri: lb://my-list-service
+          predicates:
+            - Path=/minha-lista/**
+          filters:
+            - StripPrefix=1
 
   profiles:
     active: eureka, security

@@ -55,9 +55,9 @@ http://localhost:8000/login
 
 Exemplos de uso dos endpoints a partir do Gateway
 ```
-http://localhost:8000/product-service/v1/produto/editar
+http://localhost:8000/produto/v1/editar
 ...
-http://localhost:8000/my-list-service/v1/minha-lista/inserir
+http://localhost:8000/minha-lista/v1/inserir
 ```
 
 ## Documentação
@@ -73,7 +73,7 @@ localhost:8300/documentacao
 
 Só existe um endpoint
 ```
-http://localhost:8400/v1/minha-lista/inserir
+POST http://localhost:8000/minha-lista/v1/inserir
 ```
 *body*
 ```

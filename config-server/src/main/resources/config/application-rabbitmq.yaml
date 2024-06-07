@@ -5,3 +5,10 @@ spring:
     port: 5672
     username: admin
     password: secret
+    listener:
+      simple:
+        default-requeue-rejected: false
+        retry:
+          enabled: true
+          initial-interval: 5s
+          max-attempts: 5

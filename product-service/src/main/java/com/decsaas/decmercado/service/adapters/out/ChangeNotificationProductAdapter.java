@@ -7,7 +7,6 @@ import com.decsaas.decmercado.service.application.ports.out.ChangeNotificationPr
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.retry.annotation.CircuitBreaker;
 import org.springframework.stereotype.Component;
 
 import static com.decsaas.decmercado.service.config.RabbitMQConfig.*;
@@ -26,7 +25,6 @@ public class ChangeNotificationProductAdapter implements ChangeNotificationProdu
         rabbitTemplate.convertAndSend(DIRECT_NAME, ROUTING_NAME, product);
     }
 
-    @CircuitBreaker
     @RabbitListener(queues = {QUEUE_NAME})
     public void update(Product product) {
         WebHookResquest webHookResquest = new WebHookResquest();
